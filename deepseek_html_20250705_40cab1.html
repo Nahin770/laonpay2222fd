@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoanPay - Loan Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        /* Simple transition for screen changes */
+        .screen {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .upload-box {
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed #d1d5db;
+        }
+        .upload-box:hover {
+            border-color: #ef4444;
+        }
+        .upload-box img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .has-image {
+            border-style: solid;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-sm bg-white shadow-lg rounded-2xl overflow-hidden">
+        <!-- Header will be dynamic based on the screen -->
+        <header id="main-header" class="bg-red-600 text-white p-4 flex items-center space-x-4">
+            <!-- Back button will be shown on specific screens -->
+            <button id="back-button" class="hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <h1 id="header-title" class="text-xl font-semibold"></h1>
+        </header>
+
+        <main class="p-4 md:p-6" style="min-height: 70vh;">
+
+            <!-- Screen: Login -->
+            <div id="login-screen" class="screen">
+                <div class="flex flex-col items-center mb-8">
+                    <div class="bg-white p-2 rounded-full shadow-md mb-2">
+                        <svg class="w-16 h-16" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="48" fill="#f3f4f6"/>
+                            <path d="M50 10 L90 80 L10 80 Z" fill="#ef4444"/>
+                            <path d="M50 85 L20 35 L80 35 Z" fill="#3b82f6"/>
+                            <path d="M50 10 L90 80 L50 85 Z" fill="#4ade80" opacity="0.5"/>
+                        </svg>
+                    </div>
+                    <h2 class="text-lg font-bold text-gray-700">Loan Upay</h2>
+                </div>
+
+                <h3 class="text-2xl font-bold text-center text-gray-800 mb-6">লগইন করুন</h3>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label for="mobile" class="text-sm font-medium text-gray-600">মোবাইল নাম্বার</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                            </span>
+                            <input type="text" id="mobile" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="আপনার নাম্বার লিখুন" pattern="[0-9]{11}" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="password" class="text-sm font-medium text-gray-600">পাসওয়ার্ড</label>
+                         <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <svg class="w-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </span>
+                            <input type="password" id="password" class="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="আপনার পাসওয়ার্ড লিখুন" minlength="6" required>
+                        </div>
+                    </div>
+                    <a href="#" class="text-sm text-red-600 hover:underline text-right block">পাসওয়ার্ড ভুলে গেছেন?</a>
+                    <button type="submit" class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition">লগইন করুন</button>
+                    <p class="text-center text-sm">
+                        এখনো একাউন্ট নেই? <a href="#" class="font-semibold text-red-600 hover:underline">নতুন একাউন্ট তৈরি করুন</a>
+                    </p>
+                </form>
+            </div>
+
+            <!-- Screen: Application Form -->
+            <div id="application-form-screen" class="screen hidden">
+                <h3 class="text-xl font-bold text-center text-gray-800 mb-6">লোন এপ্লিকেশন ফর্ম</h3>
+                <form id="loan-application-form" class="space-y-4">
+                    <div>
+                        <label for="full-name" class="text-sm font-medium text-gray-600">পুরো নাম</label>
+                        <input type="text" id="full-name" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" placeholder="আপনার পুরো নাম লিখুন" required>
+                    </div>
+                    <div>
+                        <label for="loan-amount" class="text-sm font-medium text-gray-600">লোনের পরিমাণ</label>
+                        <select id="loan-amount" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            <option value="">নির্বাচন করুন</option>
+                            <option value="5000">৫,০০০ টাকা</option>
+                            <option value="10000">১০,০০০ টাকা</option>
+                            <option value="20000">২০,০০০ টাকা</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="loan-tenure" class="text-sm font-medium text-gray-600">মেয়াদ (মাস)</label>
+                        <select id="loan-tenure" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            <option value="">নির্বাচন করুন</option>
+                            <option value="3">৩ মাস</option>
+                            <option value="6">৬ মাস</option>
+                            <option value="12">১২ মাস</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="loan-reason" class="text-sm font-medium text-gray-600">লোনের কারণ</label>
+                        <select id="loan-reason" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" required>
+                            <option value="">নির্বাচন করুন</option>
+                            <option value="business">ব্যবসা</option>
+                            <option value="personal">ব্যক্তিগত</option>
+                            <option value="education">শিক্ষা</option>
+                            <option value="medical">চিকিৎসা</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition">আবেদন করুন</button>
+                </form>
+            </div>
+
+            <!-- Screen: Document Upload -->
+            <div id="document-upload-screen" class="screen hidden text-center">
+                 <h3 class="text-xl font-bold text-red-600 mb-2">জাতীয় পরিচয়পত্র আপলোড</h3>
+                 <p id="upload-instruction" class="text-gray-600 mb-6"></p>
+                 <div class="grid grid-cols-2 gap-4 mb-8">
+                     <label for="nid-front-input" class="upload-box rounded-lg p-6 flex flex-col items-center justify-center h-32 cursor-pointer hover:bg-gray-50" id="nid-front-box">
+                        <div id="nid-front-placeholder">
+                            <svg class="w-8 h-8 text-gray-400 mb-2 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="text-sm text-gray-500">NID সামনের অংশ</span>
+                        </div>
+                        <input type="file" id="nid-front-input" class="hidden" accept="image/*" required>
+                        <img id="nid-front-preview" class="hidden rounded-lg">
+                     </label>
+                     <label for="nid-back-input" class="upload-box rounded-lg p-6 flex flex-col items-center justify-center h-32 cursor-pointer hover:bg-gray-50" id="nid-back-box">
+                        <div id="nid-back-placeholder">
+                            <svg class="w-8 h-8 text-gray-400 mb-2 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="text-sm text-gray-500">NID পিছনের অংশ</span>
+                        </div>
+                        <input type="file" id="nid-back-input" class="hidden" accept="image/*" required>
+                        <img id="nid-back-preview" class="hidden rounded-lg">
+                     </label>
+                 </div>
+                 <div class="text-xs text-gray-500 mb-4">সর্বোচ্চ 2MB সাইজের JPG/PNG ফাইল আপলোড করুন</div>
+                 <button id="submit-documents-btn" class="w-full bg-red-300 text-white py-3 rounded-lg font-semibold transition cursor-not-allowed" disabled>ডকুমেন্ট জমা দিন</button>
+            </div>
+
+            <!-- Screen: Loan Summary -->
+            <div id="summary-screen" class="screen hidden">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">অ্যামাউন্ট বিস্তারিত</h3>
+                <div class="bg-gray-50 p-4 rounded-lg space-y-2 mb-6">
+                    <div class="flex justify-between"><span>লোন নিয়েছেন:</span> <span id="summary-loan-amount" class="font-semibold"></span></div>
+                    <div class="flex justify-between"><span>মোট পরিশোধযোগ্য অ্যামাউন্ট:</span> <span id="summary-total-repayable" class="font-semibold"></span></div>
+                    <div class="flex justify-between"><span>মোট ইন্টারেস্ট:</span> <span id="summary-total-interest" class="font-semibold"></span></div>
+                    <div class="flex justify-between"><span>ইন্টারেস্ট রেট:</span> <span id="summary-interest-rate" class="font-semibold">3%</span></div>
+                </div>
+
+                <button id="proceed-to-payment-btn" class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition mb-6">এগিয়ে যান</button>
+
+                <h4 class="text-lg font-semibold text-gray-700 mb-4">পরিশোধের সময়সূচি</h4>
+                <div id="repayment-schedule" class="relative border-l-2 border-red-300 pl-6 space-y-8">
+                    <!-- Schedule items will be injected here by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Screen: Payment -->
+            <div id="payment-screen" class="screen hidden">
+                <div class="bg-gray-50 p-4 rounded-lg text-center mb-4">
+                    <h3 class="font-semibold text-gray-700">গুরুত্বপূর্ণ নির্দেশনা</h3>
+                    <p class="text-sm text-gray-600">সঠিকভাবে জামানত সম্পন্ন করতে আপনার bKash একাউন্ট থেকে সঠিকভাবে এবং সঠিক এমাউন্ট নিচের নাম্বারেটিতে অবশ্যই সেন্ড মানি করে ট্রানজেকশন আইডিটি নিচের বক্সে দিয়ে জমা দিন বাটনে ক্লিক করুন।</p>
+                </div>
+                
+                <div class="text-center mb-4 p-2 bg-blue-100 text-blue-800 rounded-lg">
+                    <h4 class="font-bold text-lg">আবেদন ফি আবার লোন সাথে এড করে দেওয়া হবে</h4>
+                </div>
+                
+                <div class="flex justify-around items-center text-center text-gray-500 text-sm mb-6 p-4 rounded-lg shadow-inner bg-gray-50">
+                    <div><span class="text-2xl">💳</span><p>সেন্ড মানি</p></div>
+                    <img src="https://www.svgrepo.com/show/498933/arrow-right.svg" class="h-6 w-10 text-green-500" alt="Arrow">
+                    <div><span class="text-2xl">📱</span><p>ট্রানজেকশন</p></div>
+                     <img src="https://www.svgrepo.com/show/498933/arrow-right.svg" class="h-6 w-10 text-green-500" alt="Arrow">
+                    <div><span class="text-2xl">🛍️</span><p>পেমেন্ট</p></div>
+                </div>
+
+                <div class="space-y-3 mb-6">
+                    <div class="flex items-center justify-between bg-white p-3 border rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                            <img src="https://i.ibb.co/qjWMjVp/bkash.png" alt="bKash" class="w-8 h-8 mr-3" onerror="this.onerror=null; this.src='https://placehold.co/32x32/f0f0f0/333?text=bKash';">
+                            <span class="font-semibold text-gray-700" id="bkash-number">01998189875</span>
+                        </div>
+                        <button onclick="copyToClipboard('bkash-number')" class="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold hover:bg-blue-600">কপি করুন</button>
+                    </div>
+                    <div class="flex items-center justify-between bg-white p-3 border rounded-lg shadow-sm">
+                        <div class="flex items-center">
+                             <span class="text-2xl mr-3">৳</span>
+                             <span class="font-semibold text-gray-700" id="deposit-amount">500</span>
+                        </div>
+                        <button onclick="copyToClipboard('deposit-amount')" class="bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-semibold hover:bg-blue-600">কপি করুন</button>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="transaction-id" class="text-sm font-medium text-gray-600">ট্রানজেকশন আইডি</label>
+                    <div class="relative">
+                         <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H5v-2H3v-2H1v-4a6 6 0 017.743-5.743L11 5h2v2h2v2h2v2h-2v-2h-2V7z"></path></svg>
+                        </span>
+                        <input type="text" id="transaction-id" class="w-full p-2 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 mb-2" placeholder="TrxID" required>
+                    </div>
+                    <p class="text-xs text-gray-500">আপনার সঠিকভাবে ট্রানজেকশন আইডি, এমাউন্ট এবং মেথড সিলেক্ট করতে হবে। অন্যথায় ১ মিনিটের মধ্যে অটোম্যাটিক জামানত সফল হবে এবং ব্যালেন্স যোগ হবে।</p>
+                </div>
+                 <button id="final-submit-btn" class="mt-6 w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition">জমা দিন</button>
+            </div>
+            
+            <!-- Success Message -->
+            <div id="success-message" class="hidden text-center p-8">
+                <svg class="w-16 h-16 mx-auto text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h2 class="text-2xl font-bold text-gray-800">আবেদন সফল হয়েছে!</h2>
+                <p class="text-gray-600 mt-2">আপনার লোন আবেদনটি প্রক্রিয়াধীন আছে। আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।</p>
+                <button id="start-over-btn" class="mt-6 bg-red-600 text-white py-2 px-6 rounded-lg font-semibold hover:bg-red-700 transition">আবার শুরু করুন</button>
+            </div>
+
+        </main>
+
+        <!-- Bottom Navigation -->
+        <footer class="flex justify-around items-center p-2 bg-white border-t">
+            <button class="flex flex-col items-center text-red-600">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+                <span class="text-xs">হোম</span>
+            </button>
+            <button class="flex flex-col items-center text-gray-500">
+                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span class="text-xs">লোন</span>
+            </button>
+            <button class="flex flex-col items-center text-gray-500">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <span class="text-xs">ইনবক্স</span>
+            </button>
+        </footer>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-20 right-1/2 translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm transition-opacity duration-300 opacity-0">
+        <span id="toast-message"></span>
+    </div>
+
+
+    <script>
+        // --- DOM Elements ---
+        const screens = document.querySelectorAll('.screen');
+        const headerTitle = document.getElementById('header-title');
+        const backButton = document.getElementById('back-button');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+
+        // NID Upload Elements
+        const nidFrontInput = document.getElementById('nid-front-input');
+        const nidFrontPreview = document.getElementById('nid-front-preview');
+        const nidFrontPlaceholder = document.getElementById('nid-front-placeholder');
+        const nidFrontBox = document.getElementById('nid-front-box');
+        const nidBackInput = document.getElementById('nid-back-input');
+        const nidBackPreview = document.getElementById('nid-back-preview');
+        const nidBackPlaceholder = document.getElementById('nid-back-placeholder');
+        const nidBackBox = document.getElementById('nid-back-box');
+        const submitDocumentsBtn = document.getElementById('submit-documents-btn');
+
+        
+        // --- State ---
+        let currentScreen = 'login-screen';
+        const screenHistory = [];
+        const loanData = {};
+
+        // --- Screen Titles ---
+        const screenTitles = {
+            'login-screen': ' ', // No title for login
+            'application-form-screen': 'LOAN APPLICATION',
+            'document-upload-screen': 'LOAN APPLICATION',
+            'summary-screen': 'LOAN APPLICATION',
+            'payment-screen': 'LOAN APPLICATION',
+            'success-message': 'SUCCESS'
+        };
+
+        // --- Navigation Logic ---
+        function showScreen(screenId, isBack = false) {
+            if (!isBack && currentScreen) {
+                screenHistory.push(currentScreen);
+            }
+
+            screens.forEach(screen => {
+                if (screen.id === screenId) {
+                    screen.classList.remove('hidden');
+                    // Add a slight delay for the fade-in effect
+                    setTimeout(() => screen.style.opacity = 1, 10);
+                } else {
+                    screen.style.opacity = 0;
+                    // Hide after transition
+                    setTimeout(() => screen.classList.add('hidden'), 300);
+                }
+            });
+            
+            currentScreen = screenId;
+            updateHeader();
+        }
+        
+        function goBack() {
+            if (screenHistory.length > 0) {
+                const previousScreen = screenHistory.pop();
+                showScreen(previousScreen, true);
+            }
+        }
+
+        function updateHeader() {
+            headerTitle.textContent = screenTitles[currentScreen] || '';
+            
+            // Show/hide header and back button
+            const mainHeader = document.getElementById('main-header');
+            if (currentScreen === 'login-screen' || currentScreen === 'success-message') {
+                mainHeader.classList.add('hidden');
+            } else {
+                mainHeader.classList.remove('hidden');
+            }
+
+            if (screenHistory.length > 0 && currentScreen !== 'login-screen') {
+                backButton.classList.remove('hidden');
+            } else {
+                backButton.classList.add('hidden');
+            }
+        }
+        
+        function showToast(message) {
+            toastMessage.textContent = message;
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+
+        // --- Event Listeners ---
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const mobile = document.getElementById('mobile').value;
+            const password = document.getElementById('password').value;
+            
+            // Basic validation
+            if (!/^01[3-9]\d{8}$/.test(mobile)) {
+                showToast('সঠিক মোবাইল নম্বর দিন (01XXXXXXXXX)');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showToast('পাসওয়ার্ড কমপক্ষে ৬ অক্ষরের হতে হবে');
+                return;
+            }
+            
+            showScreen('application-form-screen');
+        });
+
+        document.getElementById('loan-application-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Validate form
+            const fullName = document.getElementById('full-name').value;
+            const loanAmount = document.getElementById('loan-amount').value;
+            const loanTenure = document.getElementById('loan-tenure').value;
+            const loanReason = document.getElementById('loan-reason').value;
+            
+            if (!fullName || !loanAmount || !loanTenure || !loanReason) {
+                showToast('দয়া করে সব প্রয়োজনীয় তথ্য পূরণ করুন');
+                return;
+            }
+            
+            // Store data
+            loanData.amount = loanAmount;
+            loanData.tenure = loanTenure;
+            loanData.reason = loanReason;
+            
+            // Update and show next screen
+            const uploadInstruction = document.getElementById('upload-instruction');
+            uploadInstruction.textContent = `আপনি ${loanData.amount} টাকার লোনের জন্য আবেদন করেছেন ${loanData.tenure} মাস মেয়াদে। দয়া করে আপনার জাতীয় পরিচয়পত্র আপলোড করুন।`;
+            showScreen('document-upload-screen');
+        });
+        
+        submitDocumentsBtn.addEventListener('click', () => {
+            // Validate documents
+            if (!nidFrontInput.files.length || !nidBackInput.files.length) {
+                showToast('দয়া করে NID-এর উভয় পৃষ্ঠা আপলোড করুন');
+                return;
+            }
+            
+            // Check file sizes (max 2MB)
+            const maxSize = 2 * 1024 * 1024; // 2MB
+            if (nidFrontInput.files[0].size > maxSize || nidBackInput.files[0].size > maxSize) {
+                showToast('ছবির সাইজ 2MB এর কম হতে হবে');
+                return;
+            }
+            
+            populateSummary();
+            showScreen('summary-screen');
+        });
+
+        document.getElementById('proceed-to-payment-btn').addEventListener('click', () => {
+            showScreen('payment-screen');
+        });
+
+        document.getElementById('final-submit-btn').addEventListener('click', () => {
+            const trxId = document.getElementById('transaction-id').value.trim();
+            
+            if (!trxId) {
+                showToast('দয়া করে ট্রানজেকশন আইডি দিন');
+                return;
+            }
+            
+            // In a real app, you would send this to your server
+            console.log('Transaction submitted with ID:', trxId);
+            
+            showScreen('success-message');
+        });
+
+        document.getElementById('start-over-btn').addEventListener('click', () => {
+            // Reset state
+            screenHistory.length = 0;
+            // Clear form fields
+            document.getElementById('login-form').reset();
+            document.getElementById('loan-application-form').reset();
+            document.getElementById('transaction-id').value = '';
+            
+            // Reset NID uploads
+            resetDocumentUpload('nid-front');
+            resetDocumentUpload('nid-back');
+            
+            showScreen('login-screen');
+        });
+
+        backButton.addEventListener('click', goBack);
+        
+        // --- Helper Functions ---
+
+        // Function to check if both NID images are uploaded and enable/disable the submit button
+        function checkUploadCompletion() {
+            if (nidFrontInput.files.length > 0 && nidBackInput.files.length > 0) {
+                submitDocumentsBtn.disabled = false;
+                submitDocumentsBtn.classList.remove('bg-red-300', 'cursor-not-allowed');
+                submitDocumentsBtn.classList.add('bg-red-600', 'hover:bg-red-700');
+            } else {
+                submitDocumentsBtn.disabled = true;
+                submitDocumentsBtn.classList.add('bg-red-300', 'cursor-not-allowed');
+                submitDocumentsBtn.classList.remove('bg-red-600', 'hover:bg-red-700');
+            }
+        }
+
+        // NID Upload Listeners
+        nidFrontInput.addEventListener('change', function(event) {
+            handleFileUpload(event, 'nid-front');
+        });
+
+        nidBackInput.addEventListener('change', function(event) {
+            handleFileUpload(event, 'nid-back');
+        });
+
+        function handleFileUpload(event, type) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Validate file type
+            if (!file.type.match('image.*')) {
+                showToast('শুধুমাত্র ছবি ফাইল (JPG, PNG) আপলোড করুন');
+                resetDocumentUpload(type);
+                return;
+            }
+            
+            // Validate file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('ছবির সাইজ 2MB এর কম হতে হবে');
+                resetDocumentUpload(type);
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (type === 'nid-front') {
+                    nidFrontPreview.src = e.target.result;
+                    nidFrontPreview.classList.remove('hidden');
+                    nidFrontPlaceholder.classList.add('hidden');
+                    nidFrontBox.classList.add('has-image');
+                } else {
+                    nidBackPreview.src = e.target.result;
+                    nidBackPreview.classList.remove('hidden');
+                    nidBackPlaceholder.classList.add('hidden');
+                    nidBackBox.classList.add('has-image');
+                }
+                checkUploadCompletion();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resetDocumentUpload(type) {
+            if (type === 'nid-front') {
+                nidFrontInput.value = '';
+                nidFrontPreview.src = '';
+                nidFrontPreview.classList.add('hidden');
+                nidFrontPlaceholder.classList.remove('hidden');
+                nidFrontBox.classList.remove('has-image');
+            } else {
+                nidBackInput.value = '';
+                nidBackPreview.src = '';
+                nidBackPreview.classList.add('hidden');
+                nidBackPlaceholder.classList.remove('hidden');
+                nidBackBox.classList.remove('has-image');
+            }
+            checkUploadCompletion();
+        }
+
+        function populateSummary() {
+            const interestRate = 0.03;
+            const amount = parseFloat(loanData.amount);
+            const tenure = parseInt(loanData.tenure);
+
+            const totalInterest = amount * interestRate * tenure;
+            const totalRepayable = amount + totalInterest;
+            const monthlyPayment = totalRepayable / tenure;
+            const monthlyPrincipal = amount / tenure;
+            const monthlyInterest = totalInterest / tenure;
+
+            document.getElementById('summary-loan-amount').textContent = `৳${amount.toLocaleString('bn-BD')}`;
+            document.getElementById('summary-total-repayable').textContent = `৳${Math.round(totalRepayable).toLocaleString('bn-BD')}`;
+            document.getElementById('summary-total-interest').textContent = `৳${Math.round(totalInterest).toLocaleString('bn-BD')}`;
+
+            // Populate schedule
+            const scheduleContainer = document.getElementById('repayment-schedule');
+            scheduleContainer.innerHTML = ''; // Clear previous entries
+            
+            const today = new Date();
+            for (let i = 0; i < tenure; i++) {
+                const paymentDate = new Date(today);
+                paymentDate.setMonth(today.getMonth() + i + 1);
+                
+                const formattedDate = paymentDate.toLocaleDateString('bn-BD
